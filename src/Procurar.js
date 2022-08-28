@@ -8,8 +8,8 @@ export default function Procurar() {
   const [region, setRegion] = useState(null);
   const animaisperdidos = {
     animalperdido1: {latitude: '1ooij23', longitude: '123'},
-    animalperdido2: {latitude: '123', longitude: '123'},
-    animalperdido3: {latitude: '123', longitude: '123'}
+    animalperdido2: {latitude: '123', longitude: '12323223'},
+    animalperdido3: {latitude: '12xcx3', longitude: '123'}
   }
   const animaisdoacao = {
     animaldoacao1: {latitude: '1ooij23', longitude: '123'},
