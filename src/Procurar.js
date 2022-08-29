@@ -2,20 +2,23 @@ import { StyleSheet, Dimensions, View } from 'react-native';
 import {useState,useEffect} from 'react';
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
+import { Marker } from 'react-native-maps';
 
 export default function Procurar() {
 
   const [region, setRegion] = useState(null);
-  const animaisperdidos = {
-    animalperdido1: {latitude: '1ooij23', longitude: '123'},
-    animalperdido2: {latitude: '123', longitude: '12323223'},
-    animalperdido3: {latitude: '12xcx3', longitude: '123'}
-  }
-  const animaisdoacao = {
-    animaldoacao1: {latitude: '1ooij23', longitude: '123'},
-    animaldoacao2: {latitude: '123', longitude: '123'},
-    animaldoacao3: {latitude: '123', longitude: '123'}
-  }
+  
+  const animaisPerdidos = [
+    { coordinates: { latitude: -28.701556, longitude: -49.405889 } },
+    { coordinates: { latitude: -28.699174, longitude: -49.408318 } },
+    { coordinates: { latitude: -28.698139, longitude: -49.406634 } },
+  ];
+
+   const animaisDoaçao = [
+    { coordinates: { latitude: -28.699974, longitude:  -49.402053 } },
+    { coordinates: { latitude: -28.696174, longitude: -49.408318 } },
+    { coordinates: { latitude: -28.697139, longitude: -49.406634 } },
+  ];
 
   useEffect(() => {
     (async () => {
@@ -38,7 +41,18 @@ export default function Procurar() {
         moveOnMarkerPress={true} 
         loadingEnabled={true} 
         followsUserLocation={true} 
-        mapType={"standard"}  />
+        mapType={"standard"}  
+        >
+        
+        {animaisPerdidos.map((item, index) => (
+          <Marker key={index} title="Test" coordinate={item.coordinates} />
+        ))}
+
+        {animaisDoaçao.map((item, index) => (
+          <Marker key={index} title="Test" coordinate={item.coordinates} pinColor="blue" />
+        ))}
+
+      </MapView>
     </View>
   );
 }
