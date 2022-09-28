@@ -8,11 +8,9 @@ export default function Termos({navigation}) {
 
   return (
     <View style={styles.container}>
-        <Text style={styles.innerText}>
-        Leia os termos de uso do nosso aplicativo e no final preencha a caixinha
-        </Text>
+        <Text style={styles.innerText}>Leia os termos de uso do nosso aplicativo e no final preencha a caixinha </Text>
         <View style={styles.containerTex}>      
-        termos de uso
+          <Text>termos de uso</Text>
             <View style={styles.checkboxContainer}>
                 <BouncyCheckbox
                     value={isSelected}

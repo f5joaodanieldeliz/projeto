@@ -41,7 +41,7 @@ const [text8, onChangeText8] = useState('');
       onChangeText={onChangeText3}
       value={text3}
         style={styles.input}
-       placeholder="Raca" 
+       placeholder="Raça" 
       />
 
       <TextInput

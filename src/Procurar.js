@@ -4,20 +4,60 @@ import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Marker } from 'react-native-maps';
 
-export default function Procurar() {
+export default function Procurar({navigation}) {
 
   const [region, setRegion] = useState(null);
-  
+
   const animaisPerdidos = [
-    { coordinates: { latitude: -28.701556, longitude: -49.405889 } },
-    { coordinates: { latitude: -28.699174, longitude: -49.408318 } },
-    { coordinates: { latitude: -28.698139, longitude: -49.406634 } },
+    {
+      "latitude": -28.701556,
+      "longitude": -49.405889,
+      "nome": "joao",
+      "raca": "xiuaua",
+      "idade": 12,
+      "sexo": "famimasc",
+      "porte": "piquenes",
+      "pelagem": "piquena",
+      "posse": "sim",
+      "caracteristica": "sem perna"
+    },
+    {
+      "latitude": -28.699174,
+      "longitude": -49.408318,
+      "nome": "daniel" 
+    },
+    {
+      "latitude": -28.6934174,
+      "longitude": -49.408318,
+      "nome": "daniek jesuis" 
+    }
+
   ];
 
    const animaisDoaçao = [
-    { coordinates: { latitude: -28.699974, longitude:  -49.402053 } },
-    { coordinates: { latitude: -28.696174, longitude: -49.408318 } },
-    { coordinates: { latitude: -28.697139, longitude: -49.406634 } },
+    {
+      "latitude": -28.699974,
+      "longitude": -49.402053,
+      "nome": "luciano",
+      "raca": "pitbull",
+      "idade": 2,
+      "sexo": "masculino",
+      "porte": "medio",
+      "pelagem": "lisa",
+      "posse": "nao",
+      "caracteristica": "sem perna"
+    },
+    {
+      "latitude": -28.696174,
+      "longitude":-49.408318,
+      "nome": "jose" 
+    },
+    {
+      "latitude": -28.697139,
+      "longitude": -49.406634,
+      "nome": "daniek jesuis" 
+    }
+   
   ];
 
   useEffect(() => {
@@ -45,11 +85,13 @@ export default function Procurar() {
         >
         
         {animaisPerdidos.map((item, index) => (
-          <Marker key={index} title="Test" coordinate={item.coordinates} />
+          <Marker key={index} title="Perdido" description='animais perdidos nessa regiao'
+           coordinate={item} onPress={() => navigation.navigate('DetalheAnimal', animaisPerdidos[index])} />
         ))}
 
         {animaisDoaçao.map((item, index) => (
-          <Marker key={index} title="Test" coordinate={item.coordinates} pinColor="blue" />
+          <Marker key={index} title="Adoçao" description='animais para Adoçao nessa regiao' 
+          coordinate={item} pinColor="blue" onPress={() => navigation.navigate('DetalheAnimal', animaisDoaçao[index])}/>
         ))}
 
       </MapView>

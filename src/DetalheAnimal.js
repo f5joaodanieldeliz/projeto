@@ -1,11 +1,10 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { StyleSheet, Text, View,Image } from 'react-native';
 import FundoPerfil from '../assets/FundoPerfil.png'
 
-export default function DetalheAnimal({navigation}) {
+export default function DetalheAnimal({navigation,route}) {
   return (
 <View style={styles.container}>
-
   <Image 
     style={styles.logo}
     source={FundoPerfil}
@@ -13,28 +12,29 @@ export default function DetalheAnimal({navigation}) {
 
   <View style={styles.containerTex}>
     <Text style={styles.innerTitle}>
-        Animal:
+
+        Animal:{route.params?.nome} 
       </Text>
     <Text style={styles.innerTitle}>
-        Raca:
+        Raca:{route.params?.raca} 
       </Text>
       <Text style={styles.innerTitle}>
-        Idade:
+        Idade:{route.params?.idade} 
       </Text>
       <Text style={styles.innerTitle}>
-        Sexo:
+        Sexo:{route.params?.sexo} 
       </Text>
     <Text style={styles.innerTitle}>
-        Porte:
+        Porte:{route.params?.porte} 
       </Text>
       <Text style={styles.innerTitle}>
-        Pelagem:
+        Pelagem:{route.params?.pelagem} 
       </Text>
     <Text style={styles.innerTitle}>
-        Posse do animal:
+        Posse do animal:{route.params?.posse} 
       </Text>
     <Text style={styles.innerTitle}>
-         Caracteristica:
+         Caracteristica:{route.params?.caracteristica} 
       </Text>
   </View>
 </View> 
