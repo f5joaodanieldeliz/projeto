@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "913900636423",
+    "firebase_url": "https://projeto-206ed-default-rtdb.firebaseio.com",
+    "project_id": "projeto-206ed",
+    "storage_bucket": "projeto-206ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:913900636423:android:0d9f16aee79838db0edda2",
+        "android_client_info": {
+          "package_name": "com.projeto.petsiu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "913900636423-v3lia7ppqlnemsfafumi9mfau4b5u9t2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjK8dOtyUKVpjVQWCs1rS34ElQoMSsoW8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "913900636423-v3lia7ppqlnemsfafumi9mfau4b5u9t2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
