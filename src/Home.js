@@ -19,9 +19,6 @@ export default function Home({ navigation }) {
           <Text>Postar animal</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('DetalheAnimal', animaisPerdidos)}>
-          <Text>Adotar</Text>
-        </TouchableOpacity>
         
         <TouchableOpacity style={styles.button} onPress = {() => navigation.navigate('Doacao')}>
           <Text>para adoção</Text>

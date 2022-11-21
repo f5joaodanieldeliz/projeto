@@ -81,10 +81,14 @@ alignItems: 'center',
 },
 
 containerTex: {
-backgroundColor: 'white',
-
-marginTop: 15,
-},
+  backgroundColor: 'white',
+  marginTop: 15,
+  width: '90%',
+  height: '30%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-around',
+  },
 
 innerTitle: {
   color: 'black',

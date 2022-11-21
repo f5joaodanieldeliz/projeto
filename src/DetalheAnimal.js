@@ -59,7 +59,6 @@ alignItems: 'center',
 
 containerTex: {
 backgroundColor: 'white',
-//alignItems: 'left',
 marginTop: 30,
 borderWidth: 3,
 width:350,
