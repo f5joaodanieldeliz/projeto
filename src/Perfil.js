@@ -28,6 +28,9 @@ export default function Perfil({navigation}) {
       <Text style={styles.innerTitle}>
         Telefone:
       </Text>
+      <Text style={styles.innerTitle}>
+        Email:
+      </Text>
   </View>
 
   <View style={styles.editar}>

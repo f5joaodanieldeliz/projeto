@@ -1,66 +1,145 @@
-import { StyleSheet, Dimensions, View } from 'react-native';
+import { StyleSheet, Dimensions, View, RefreshControlBase } from 'react-native';
 import {useState,useEffect} from 'react';
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Marker } from 'react-native-maps';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
 export default function Procurar({navigation}) {
 
   const [region, setRegion] = useState(null);
+  const [resultP, setResultA] = useState([]);
+  const [resultD, setResultD] = useState([]);
+ 
 
-  const animaisPerdidos = [
-    {
-      "latitude": -28.701556,
-      "longitude": -49.405889,
-      "nome": "joao",
-      "raca": "xiuaua",
-      "idade": 12,
-      "sexo": "famimasc",
-      "porte": "piquenes",
-      "pelagem": "piquena",
-      "posse": "sim",
-      "caracteristica": "sem perna"
-    },
-    {
-      "latitude": -28.699174,
-      "longitude": -49.408318,
-      "nome": "daniel" 
-    },
-    {
-      "latitude": -28.6934174,
-      "longitude": -49.408318,
-      "nome": "daniek jesuis" 
-    }
+  const animaisPerdidos = () => { 
+    const db = getDatabase();
+    const reference = ref(db, 'animaisPerdidos');
+    onValue(reference, (snapshot) => { 
+      const animaisPerdidos = snapshot.val();
+      console.log(Object.values(animaisPerdidos));
+      setResultA(Object.values(animaisPerdidos));
+    });
+  };
 
-  ];
+  const animaisDoacao = () => { 
+    const db = getDatabase();
+    const reference = ref(db, 'animaisDoacao');
+    onValue(reference, (snapshot) => { 
+      const animaisDoacao = snapshot.val();
+      console.log(Object.values(animaisDoacao));
+      setResultD(Object.values(animaisDoacao));
+    });
+  };
 
-   const animaisDoaçao = [
+  /*[
     {
-      "latitude": -28.699974,
-      "longitude": -49.402053,
-      "nome": "luciano",
-      "raca": "pitbull",
-      "idade": 2,
-      "sexo": "masculino",
-      "porte": "medio",
-      "pelagem": "lisa",
+      "user": {
+        "nome": "luciano",
+      },
+      "animal":
+      {
+        "apelido": "apelido",
+        "raca": "pitbull",
+        "idade": 2,
+        "sexo": "masculino",
+        "porte": "medio",
+        "pelagem": "lisa",
+        "caracteristica": "sem perna"
+      },
+      "localizacao": {
+        "latitude": -28.701556,
+        "longitude": -49.405889,
+      },
       "posse": "nao",
-      "caracteristica": "sem perna"
+      "status": "perdido",
     },
     {
-      "latitude": -28.696174,
-      "longitude":-49.408318,
-      "nome": "jose" 
+      "localizacao": {
+        "latitude": -28.699174,
+        "longitude": -49.408318,
+      },
+      "user": {
+        "nome": "daniel" 
+      }
     },
     {
-      "latitude": -28.697139,
-      "longitude": -49.406634,
-      "nome": "daniek jesuis" 
+      "localizacao": {
+        "latitude": -28.6934174,
+        "longitude": -49.408318,
+      },
+      "user": {
+        "nome": "daniek jesuis" 
+      }
+    }
+    
+  ];
+    */
+
+   /*const animaisDoaçao = [
+    {
+      "user": {
+        "nome": "luciano",
+      },
+      "animal":
+      {
+        "apelido": "BOB",
+        "raca": "pitbull",
+        "idade": 2,
+        "sexo": "masculino",
+        "porte": "medio",
+        "pelagem": "lisa",
+        "caracteristica": "sem perna"
+      },
+      "localizacao": {
+        "latitude": -28.699974,
+        "longitude": -49.402053,
+      },
+      "posse": "nao",
+      "status": "disponivel",
+    },
+
+    {
+      "user": {
+        "nome": "luciano",
+      },
+
+      "animal":
+      {
+        "apelido": "BOB",
+        "raca": "pitbull",
+        "idade": 2,
+        "sexo": "masculino",
+        "porte": "medio",
+        "pelagem": "lisa",
+        "caracteristica": "sem perna"
+      },
+
+      "localizacao": {
+        "latitude": -28.696174,
+        "longitude":-49.408318,
+      },
+
+      "posse": "nao",
+      "status": "disponivel",
+
+    },
+
+    {
+      "localizacao": {
+        "latitude": -28.697139,
+        "longitude": -49.406634,
+      },
+      "user": {
+        "nome": "daniek jesuis" 
+      }
     }
    
-  ];
+  ];*/
 
   useEffect(() => {
+    animaisPerdidos();
+    animaisDoacao();
     (async () => {
       let location = await Location.getCurrentPositionAsync({});
       setRegion({
@@ -84,14 +163,22 @@ export default function Procurar({navigation}) {
         mapType={"standard"}  
         >
         
-        {animaisPerdidos.map((item, index) => (
-          <Marker key={index} title="Perdido" description='animais perdidos nessa regiao'
-           coordinate={item} onPress={() => navigation.navigate('DetalheAnimal', animaisPerdidos[index])} />
+        
+
+        {
+        resultP?.map((item, index) => (
+          <Marker key={index} title="Perdido" description='DanimaisDoacao perdidos nessa regiao'
+           coordinate={item.localizacao} onPress={() => {
+            navigation.navigate('DetalheAnimal', resultP[index])
+           } } />
         ))}
 
-        {animaisDoaçao.map((item, index) => (
+        {resultD?.map((item, index) => (
           <Marker key={index} title="Adoçao" description='animais para Adoçao nessa regiao' 
-          coordinate={item} pinColor="blue" onPress={() => navigation.navigate('DetalheAnimal', animaisDoaçao[index])}/>
+          coordinate={item.localizacao} 
+          pinColor="blue" 
+          onPress={() => navigation.navigate('DetalheAnimal', resultD[index]
+          )}/>
         ))}
 
       </MapView>

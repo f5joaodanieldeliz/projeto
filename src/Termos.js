@@ -14,14 +14,16 @@ export default function Termos({navigation}) {
             <View style={styles.checkboxContainer}>
                 <BouncyCheckbox
                     value={isSelected}
-                    onValueChange={setSelection}
+                    onPress={() => setSelection(!isSelected)}
+                    isChecked={isSelected}
                     style={styles.checkbox}
                     />
                 <Text style={styles.label}>aceito </Text>
             
                 <BouncyCheckbox
                     value={isSelected2}
-                    onValueChange={setSelection2}
+                    onPress={() => setSelection2(!isSelected2)}
+                    isChecked={isSelected2}
                     style={styles.checkbox}
                     />
                 <Text style={styles.label}>recuso </Text>

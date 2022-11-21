@@ -15,6 +15,20 @@ import CriaConta from './src/CriaConta';
 import Doacao from './src/Doacao';
 import Termos from './src/Termos';
 import DetalheAnimal from './src/DetalheAnimal';
+import { initializeApp } from 'firebase/app';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBUcoW4_ZCktKbpS6rMZDJal2FKsDLbzvw",
+  authDomain: "projeto-206ed.firebaseapp.com",
+  databaseURL: "https://projeto-206ed-default-rtdb.firebaseio.com",
+  projectId: "projeto-206ed",
+  storageBucket: "projeto-206ed.appspot.com",
+  messagingSenderId: "913900636423",
+  appId: "1:913900636423:web:14b0a2d099a355480edda2",
+  measurementId: "G-4HXL6RZ7EZ"
+};
+
+let myApp = initializeApp(firebaseConfig);
 
 //import { Header } from 'react-native/Libraries/NewAppScreen';
 

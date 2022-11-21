@@ -1,91 +1,130 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View,TextInput,TouchableOpacity } from 'react-native';
-import BouncyCheckbox from "react-native-bouncy-checkbox";
+import React, { useState } from 'react';
+import { StyleSheet, Text,View,TextInput,TouchableOpacity,ScrollView } from 'react-native';
+import {cadastrarUsuario} from './Database/AnimaisPerdidos'
 
 
 export default function CriaConta({navigation}) {
-  const [isSelected, setSelection] = useState(false);
-  const [text, onChangeText,] = useState('');
-  const [text2, onChangeText2,] = useState('');
-  const [text3, onChangeText3,] = useState('');
-  const [text4, onChangeText4,] = useState('');
-  const [text5, onChangeText5,] = useState('');
-  const [text6, onChangeText6,] = useState('');
-  const [text7, onChangeText7,] = useState('');
-  const [text8, onChangeText8,] = useState('');
-  
+  const [nome, onChangeText] = useState('');
+  const [idade, onChangeText8] = useState('');
+  const [Telefone, onChangeText9] = useState('');
+  const [Eamil, onChangeText2] = useState('');
+  const [senha, onChangeText3] = useState('');
+  const [condirmarSenha, onChangeText4] = useState('');
+  const [cpf, onChangeText5] = useState('');
+  const [estado, onChangeText6] = useState('');
+  const [cidade, onChangeText7] = useState('');
+ 
 
   return (
+  <ScrollView>
     <View style={styles.container}>
-        <Text style={styles.innerText}>
-        preencha com os dados para criar a conta
-        </Text>
-        <View style={styles.containerTex}>  
+  
+    <View style={styles.top}>
+    <Text style={styles.innerText}>
+        prencha os dados para criar a sua conta
+      </Text> 
+    </View>
 
-            <TextInput 
-            onChangeText={onChangeText}
-            value={text}
-                style={styles.input}
-            placeholder="Nome" 
-            />
-            <TextInput
-             onChangeText={onChangeText2} 
-             value={text2}
-                style={styles.input}
-            placeholder="Senha" 
-            />
-            <TextInput
-            onChangeText={onChangeText3} 
-            value={text3}
-                style={styles.input}
-                placeholder="Confirmar senha" 
-            />
-            <TextInput
-            onChangeText={onChangeText4} 
-            value={text4}
-                style={styles.input}
-                placeholder="Email" 
-            />
-            <TextInput
-            onChangeText={onChangeText5} 
-            value={text5}
-                style={styles.input}
-                placeholder="Cidade" 
-            />
-            <TextInput
-            onChangeText={onChangeText6} 
-            value={text6}
-                style={styles.input}
-                placeholder="Estado" 
-            />
-            <TextInput
-            onChangeText={onChangeText7} 
-            value={text7}
-                style={styles.input}
-                placeholder="Telefone" 
-            />
-            <TextInput
-            onChangeText={onChangeText8} 
-            value={text8}
-                style={styles.input}
-                placeholder="CPF" 
-            />
-            <View style={styles.checkboxContainer}>
-                <BouncyCheckbox
-                    value={isSelected}
-                    onValueChange={setSelection}
-                    style={styles.checkbox}
-                    />
-                <Text style={styles.label} onPress={() => navigation.navigate("Termos")}>
-                  clique aqui para ver o contrato e confirme com os termos de uso 
-                </Text>
-            </View>
+      <View style={styles.containerTex}>      
+      <TextInput
+      onChangeText={onChangeText}
+      value={nome}
+        style={styles.input}
+       placeholder="user name" 
+      />
 
-            <TouchableOpacity disabled={!isSelected || !text || text2 != text3 || !text4 || !text5 || !text6 || !text7 || !text8 }  style={ !isSelected || !text || text2 != text3 || !text4 || !text5 || !text6 || !text7 || !text8  ? styles.buttonDisable : styles.buttonEnable }>
-                <Text>criar</Text>
-            </TouchableOpacity>
-        </View>
+      <TextInput
+       onChangeText={onChangeText8}
+       value={idade}
+        style={styles.input}
+        placeholder="idade" 
+      />
+
+      <TextInput
+      onChangeText={onChangeText2}
+      value={Eamil}
+        style={styles.input}
+       placeholder="Eamil" 
+      />
+
+      <TextInput
+      onChangeText={onChangeText3}
+      value={senha}
+        style={styles.input}
+       placeholder="senha" 
+      />
+
+      <TextInput
+      onChangeText={onChangeText4}
+      value={condirmarSenha}
+        style={styles.input}
+        placeholder="condirmar senha" 
+      />
+
+      <TextInput
+       onChangeText={onChangeText5}
+       value={cpf}
+        style={styles.input}
+        placeholder="cpf" 
+      />
+
+       <TextInput
+       onChangeText={onChangeText6}
+       value={estado}
+        style={styles.input}
+        placeholder="estado" 
+      />
+
+      <TextInput
+       onChangeText={onChangeText7}
+       value={cidade}
+        style={styles.input}
+        placeholder="cidade" 
+      />
+      <TextInput
+       onChangeText={onChangeText9}
+       value={Telefone}
+        style={styles.input}
+        placeholder="telefone" 
+      />
+      
+
+      <View style={styles.contrape}>
+      
+      </View>
+     
+
+      <TouchableOpacity disabled={!nome || !idade ||  !Eamil || !senha || !condirmarSenha || !cpf || !estado || !cidade || !Telefone   }
+       style={ !nome || !idade ||  !Eamil || !senha || !condirmarSenha || !cpf || !estado || !cidade || !Telefone  ? styles.buttonDisable : styles.buttonEnable}
+      onPress={() =>{
+        usuario = {
+          "usuario": {
+            "nome" : nome,
+            "idade" : idade,
+            "telefone" : Telefone,
+            "Email": Eamil,
+            "senha": senha,
+            "condirmar senha": condirmarSenha,
+            "cpf" : cpf,
+            "estado" : estado,
+            "cidade" : cidade,
+          }
+        }
+        cadastrarUsuario('1667617200000',usuario, nome)}} 
+      
+       >
+        
+
+      <Text>Posta</Text>
+      </TouchableOpacity>
+
+      <View style={styles.contrape}>
+      
+      </View>
+
+      </View>
    </View>
+  </ScrollView>
   );
 }
 
@@ -96,11 +135,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
   },
-  containerBox: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
 
   containerTex: {
     flex: 1,
@@ -108,7 +142,7 @@ const styles = StyleSheet.create({
   },
   innerText: {
     color: 'black',
-    fontSize:15,
+    fontSize:20,
   },
   innerTitel: {
     color: 'black',
@@ -116,29 +150,33 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    margin: 12,
+    width: 250,
     borderWidth: 1,
     padding: 10,
-    marginTop:15,
+    marginTop:25,
   },
   buttonEnable: {
     alignItems: "center",
     backgroundColor: "#5cc6ba",
     padding: 10,
     borderRadius:7,
-    marginTop:50,
+    marginTop:5,
   },
   buttonDisable: {
     alignItems: "center",
     backgroundColor: "gray",
     padding: 10,
     borderRadius:7,
-    marginTop:50,
+    marginTop:0,
   },
   logo: {
     height:110,
     width:130,
     marginTop:50,
+  },
+  label: {
+    margin: 8,
+    fontSize:13,
   },
   checkboxContainer: {
     flexDirection: "row",
@@ -147,10 +185,11 @@ const styles = StyleSheet.create({
   checkbox: {
     alignSelf: "center",
   },
-  label: {
-    margin: 8,
-    fontSize:13,
+  top: {
+    height: '7%',
   },
 
- 
+  contrape:{
+    height: 30,}
+
 });

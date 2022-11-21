@@ -3,18 +3,6 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import logo from '../assets/Logo.png'
 
 export default function Home({ navigation }) {
-  const animaisPerdidos = [
-    {
-      "latitude": -28.701556,
-      "longitude": -49.405889,
-      "nome": "joao"
-    },
-    {
-      "latitude": -28.699174,
-      "longitude": -49.408318,
-      "nome": "daniel" 
-    }
-  ];
   return (
     <View style={styles.container}>
       <Image 

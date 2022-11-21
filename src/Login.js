@@ -1,8 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text ,View, TextInput, TouchableOpacity, Image } from 'react-native';
 import logo from '../assets/Logo.png'
 
+
+
 export default function Login({navigation}) {
+
+  const [nome, setNome] = useState('');
+  const [senha, setSenha] = useState('');
+  //const [resultD, setResultD] = useState([]);
+  
+  /*const usuario = () => { 
+    const db = getDatabase();
+    const reference = ref(db, 'usuario');
+    onValue(reference, (snapshot) => { 
+      const usuarios = snapshot.val();
+      console.log(Object.values(usuarios));
+      setResultD(Object.values(usuarios));
+    });
+  };*/
+
   return (
     <View style={styles.container}>
       <Image 
@@ -15,18 +32,24 @@ export default function Login({navigation}) {
 
       <View style={styles.containerTex}>      
       <TextInput
+      onChangeText={setNome}
         style={styles.input}
-       placeholder="Email" 
+       placeholder="usuario" 
+       value={nome}
       />
+
       <TextInput
+      onChangeText={setSenha}
         style={styles.input}
         placeholder="senhar" 
+        value={senha}
       />
       <Text style={styles.innerText} onPress={() => navigation.navigate('CriaConta')}>
         nao tem conta ? cadastre-se
       </Text>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+      <TouchableOpacity style={styles.button} 
+      onPress={() => navigation.navigate('Home')}>
       <Text>logar</Text>
       </TouchableOpacity>
       </View>

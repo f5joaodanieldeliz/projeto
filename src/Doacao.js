@@ -1,97 +1,158 @@
-
 import React, { useState } from "react";
 import { StyleSheet, Text, View,TextInput,TouchableOpacity,ScrollView } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
+import {cadastrarAnimalDoacao} from './Database/AnimaisPerdidos'
 
 
 export default function Doacao({navigation}) {
-const [isSelected, setSelection] = useState(false);
-const [text, onChangeText] = useState('');
-const [text2, onChangeText2] = useState('');
-const [text3, onChangeText3] = useState('');
-const [text4, onChangeText4] = useState('');
-const [text5, onChangeText5] = useState('');
-const [text6, onChangeText6] = useState('');
-const [text7, onChangeText7] = useState('');
-const [text8, onChangeText8] = useState('');
+  const [posse, setSelection] = useState(false);
+  const [apelido, onChangeText] = useState('');
+  const [animal, onChangeText2] = useState('');
+  const [raca, onChangeText3] = useState('');
+  const [idade, onChangeText4] = useState('');
+  const [sexo, onChangeText5] = useState('');
+  const [porte, onChangeText6] = useState('');
+  const [Pelagem, onChangeText7] = useState('');
+  const [Caracteristica, onChangeText8] = useState('');
+  const [status, setSelection2] = useState(false);
+  const [latitude, onChangeText10] = useState('');
+  const [longitude, onChangeText11] = useState('');
+
   return (
   <ScrollView>
     <View style={styles.container}>
-     
+      
+      <View style={styles.top}>
       <Text style={styles.innerText}>
-      coloque as características dos animais que deseja botar para adoçao
-      </Text>
+       coloque as características dos animais que deseja botar para adoçao
+      </Text> 
+      </View>
 
-      <View style={styles.containerTex}>      
+      <View style={styles.containerTex}> 
+
       <TextInput
       onChangeText={onChangeText}
-      value={text}
+      value={apelido}
         style={styles.input}
-       placeholder="foto do animal" 
+       placeholder="apelido" 
       />
 
       <TextInput
       onChangeText={onChangeText2}
-      value={text2}
+      value={animal}
         style={styles.input}
        placeholder="Animal" 
       />
 
       <TextInput
       onChangeText={onChangeText3}
-      value={text3}
+      value={raca}
         style={styles.input}
-       placeholder="Raca" 
+       placeholder="Raça" 
       />
 
       <TextInput
       onChangeText={onChangeText4}
-      value={text4}
+      value={idade}
         style={styles.input}
         placeholder="Idade (visivel)" 
       />
 
       <TextInput
        onChangeText={onChangeText5}
-       value={text5}
+       value={sexo}
         style={styles.input}
         placeholder="Sexo (F/M)" 
       />
 
        <TextInput
        onChangeText={onChangeText6}
-       value={text6}
+       value={porte}
         style={styles.input}
         placeholder="porte" 
       />
 
       <TextInput
        onChangeText={onChangeText7}
-       value={text7}
+       value={Pelagem}
         style={styles.input}
         placeholder="Pelagem" 
       />
 
       <TextInput
       onChangeText={onChangeText8}
-      value={text8}
+      value={Caracteristica}
         style={styles.input}
         placeholder="Caracteristica" 
       />
 
-      <View style={styles.checkboxContainer}>
+      <TextInput
+      onChangeText={onChangeText10}
+      value={latitude}
+        style={styles.input}
+       placeholder="latitude da localização" 
+      />
+
+      <TextInput
+      onChangeText={onChangeText11}
+      value={longitude}
+        style={styles.input}
+       placeholder="longitude da localização" 
+      />
+
+<View style={styles.checkboxContainer}>
             <BouncyCheckbox
-              value={isSelected}
-              onValueChange={setSelection}
-               style={styles.checkbox}/>
+                value={posse}
+                onPress={() => setSelection(!posse)}
+                isChecked={posse}
+                style={styles.checkbox}
+                />
               <Text style={styles.label}>
-              voce esta com o animal
+                voce esta com o animal
               </Text>
-       </View>
+        </View>
+       <View style={styles.checkboxContainer}>
+             <BouncyCheckbox
+                value={status}
+                onPress={() => setSelection2(!status)}
+                isChecked={status}
+                style={styles.checkbox}
+                />
+              <Text style={styles.label}>
+                ja foi encontrado
+              </Text>
+          </View>
 
 
-
-      <TouchableOpacity disabled={!text || !text2 || !text3 || !text4 || !text5 || !text6 || !text7 || !text8 } style={ !text || !text2 || !text3 || !text4 || !text5 || !text6 || !text7 || !text8  ? styles.buttonDisable : styles.buttonEnable}>
+      <TouchableOpacity 
+      disabled={!apelido || !animal || !raca || !idade || !sexo || !porte || !Pelagem || !Caracteristica } 
+      style={ !apelido || !animal || !raca || !idade || !sexo || !porte || !Pelagem || !Caracteristica ? styles.buttonDisable : styles.buttonEnable}
+      onPress={() => {
+        animalDoaçao = { 
+          "user": {
+            "nome": "luciano",
+          },
+          "animal":
+          {
+            "apelido": apelido,
+            "raca": raca,
+            "idade": idade,
+            "sexo": sexo,
+            "porte": porte,
+            "pelagem": Pelagem,
+            "caracteristica": Caracteristica
+          },
+          "localizacao": {
+            "latitude":  parseFloat(latitude),
+            "longitude": parseFloat(longitude),
+          },
+          "posse": posse,
+          "status": !status ? "perdido" : "encontrado",
+        }
+        
+        cadastrarAnimalDoacao('1667617200000', animalDoaçao)}
+      }
+      >
       <Text>Posta</Text>
       </TouchableOpacity>
       </View>
@@ -106,20 +167,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     alignItems: 'center',
-
-
   },
 
   containerTex: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
-
-
   },
   innerText: {
     color: 'black',
-    fontSize:15,
+    fontSize:20,
   },
   innerTitel: {
     color: 'black',
@@ -127,7 +183,7 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    margin: 12,
+    width: 250,
     borderWidth: 1,
     padding: 10,
     marginTop:25,
@@ -137,16 +193,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#5cc6ba",
     padding: 10,
     borderRadius:7,
-    marginTop:50,
-    width: 200,
+    marginTop:5,
   },
   buttonDisable: {
     alignItems: "center",
     backgroundColor: "gray",
     padding: 10,
     borderRadius:7,
-    marginTop:50,
-    width: 200,
+    marginTop:5,
   },
   logo: {
     height:110,
@@ -163,6 +217,9 @@ const styles = StyleSheet.create({
   },
   checkbox: {
     alignSelf: "center",
+  },
+  top: {
+    height: '7%',
   },
   
  
