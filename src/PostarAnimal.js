@@ -21,6 +21,9 @@ export default function PostarAnimal({navigation}) {
   const [longitude, onChangeText11] = useState('');
   const [image, setImage] = useState(null);
   const [location, setLocation] = useState(null);
+  const [lat, setLat] = useState(null);
+  const [long, setLong] = useState(null);
+
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -52,8 +55,11 @@ export default function PostarAnimal({navigation}) {
   }, []);
 
   const minhaLocalizacao = () => {
-      
-  }
+      if(location.coords.latitude != null && location.coords.longitude != null){
+        setLat(location.coords.latitude);
+        setLong(location.coords.longitude);
+      };
+  };
 
   return (
   <ScrollView>
