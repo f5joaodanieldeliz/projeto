@@ -1,25 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text ,View, TextInput, TouchableOpacity, Image } from 'react-native';
 import logo from '../assets/Logo.png'
+import { getDatabase, ref, onValue } from 'firebase/database';
 
 
 
 export default function Login({navigation}) {
 
-  const [nome, setNome] = useState('');
+  const [usuario, setUsuario] = useState('');
   const [senha, setSenha] = useState('');
-  const [resultD, setResultD] = useState([]);
+  const [resultU, setResultD] = useState([]);
   
-  const usuario = () => { 
+  const usuarios = () => { 
     const db = getDatabase();
     const reference = ref(db, 'usuario');
     onValue(reference, (snapshot) => { 
-      const usuarios = snapshot.val();
-      console.log(Object.values(usuarios));
-      setResultD(Object.values(usuarios));
+      const usuario = snapshot.val();
+      console.log((usuario));
+      setResultD((usuario));
     });
   };
 
+
+   useEffect(() => {
+    usuarios();
+  }, []);
+
+
+
+   function autenticacao (username, password) {
+     if ( username in resultU) {
+       let  usernameResult = resultU[username];
+      if(password === usernameResult.usuario.senha){
+        navigation.navigate('Home');
+      }  
+     };
+   };
+  
   return (
     <View style={styles.container}>
       <Image 
@@ -32,10 +49,10 @@ export default function Login({navigation}) {
 
       <View style={styles.containerTex}>      
       <TextInput
-      onChangeText={setNome}
+      onChangeText={setUsuario}
         style={styles.input}
        placeholder="usuario" 
-       value={nome}
+       value={usuario}
       />
 
       <TextInput
@@ -49,7 +66,7 @@ export default function Login({navigation}) {
       </Text>
 
       <TouchableOpacity style={styles.button} 
-      onPress={() => navigation.navigate('Home')}>
+      onPress={() => autenticacao(usuario,senha)}>
       <Text>logar</Text>
       </TouchableOpacity>
       </View>
