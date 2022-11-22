@@ -3,6 +3,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { StyleSheet, Text,View,TextInput,TouchableOpacity,ScrollView } from 'react-native';
 import {cadastrarAnimalPerdido} from './Database/AnimaisPerdidos';
 import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
 
 
 export default function PostarAnimal({navigation}) {
@@ -19,6 +20,7 @@ export default function PostarAnimal({navigation}) {
   const [latitude, onChangeText10] = useState('');
   const [longitude, onChangeText11] = useState('');
   const [image, setImage] = useState(null);
+  const [location, setLocation] = useState(null);
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -35,6 +37,23 @@ export default function PostarAnimal({navigation}) {
       setImage(result.assets[0].uri);
     }
   };
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+  const minhaLocalizacao = () => {
+      
+  }
 
   return (
   <ScrollView>
@@ -55,7 +74,7 @@ export default function PostarAnimal({navigation}) {
     </TouchableOpacity>
 
 
-      <TextInput
+      <TextInput 
       onChangeText={onChangeText}
       value={apelido}
         style={styles.input}

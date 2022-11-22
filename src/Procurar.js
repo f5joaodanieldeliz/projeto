@@ -166,20 +166,23 @@ export default function Procurar({navigation}) {
         
 
         {
-        resultP?.map((item, index) => (
-          <Marker key={index} title="Perdido" description='DanimaisDoacao perdidos nessa regiao'
-           coordinate={item.localizacao} onPress={() => {
-            navigation.navigate('DetalheAnimal', resultP[index])
-           } } />
-        ))}
+          resultP?.map((item, index) => (
+            <Marker key={index} title="Perdido" description='DanimaisDoacao perdidos nessa regiao'
+            coordinate={item.localizacao} onPress={() => {
+              navigation.navigate('DetalheAnimal', resultP[index])
+            } } />
+          ))
+        }
 
-        {resultD?.map((item, index) => (
-          <Marker key={index} title="Adoçao" description='animais para Adoçao nessa regiao' 
-          coordinate={item.localizacao} 
-          pinColor="blue" 
-          onPress={() => navigation.navigate('DetalheAnimal', resultD[index]
-          )}/>
-        ))}
+        {
+          resultD?.map((item, index) => (
+            <Marker key={index} title="Adoçao" description='animais para Adoçao nessa regiao' 
+            coordinate={item.localizacao} 
+            pinColor="blue" 
+            onPress={() => navigation.navigate('DetalheAnimal', resultD[index]
+            )}/>
+          ))
+        }
 
       </MapView>
     </View>

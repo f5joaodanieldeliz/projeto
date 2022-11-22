@@ -8,9 +8,9 @@ export default function Login({navigation}) {
 
   const [nome, setNome] = useState('');
   const [senha, setSenha] = useState('');
-  //const [resultD, setResultD] = useState([]);
+  const [resultD, setResultD] = useState([]);
   
-  /*const usuario = () => { 
+  const usuario = () => { 
     const db = getDatabase();
     const reference = ref(db, 'usuario');
     onValue(reference, (snapshot) => { 
@@ -18,7 +18,7 @@ export default function Login({navigation}) {
       console.log(Object.values(usuarios));
       setResultD(Object.values(usuarios));
     });
-  };*/
+  };
 
   return (
     <View style={styles.container}>
