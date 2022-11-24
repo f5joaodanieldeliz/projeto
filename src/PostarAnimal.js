@@ -19,7 +19,6 @@ export default function PostarAnimal({navigation}) {
   const [status, setSelection2] = useState(false);
   const [latitude, onChangeText10] = useState('');
   const [longitude, onChangeText11] = useState('');
-
   const [image, setImage] = useState(null);
   const [location, setLocation] = useState(null);
   
@@ -209,7 +208,9 @@ export default function PostarAnimal({navigation}) {
             "posse": !posse ? "nao" : "sim",
             "status": !status ? "perdido" : "encontrado",
           }
-          cadastrarAnimalPerdido('1667617200000', animalPerdido)}
+          cadastrarAnimalPerdido('1667617200000', animalPerdido)
+          navigation.navigate("Procurar")
+        }
         }
         >
       <Text>Postar</Text>

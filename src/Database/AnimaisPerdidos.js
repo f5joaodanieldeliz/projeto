@@ -40,7 +40,7 @@ export function cadastrarAnimalDoacao(userId, animalDoacao) {
         usuarios = snapshot.val()
       }
       usuarios[[`${nome}`]] = usuario;
-      console.log("usuarios" + JSON.stringify(usuario));
+      console.log("usuarios" + JSON.stringify(usuarios));
       set(reference, usuarios);
     });
   }

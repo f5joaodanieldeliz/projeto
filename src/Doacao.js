@@ -200,7 +200,9 @@ export default function Doacao({navigation}) {
           "status": !status ? "perdido" : "encontrado",
         }
         
-        cadastrarAnimalDoacao('1667617200000', animalDoaçao)}
+        cadastrarAnimalDoacao('1667617200000', animalDoaçao)
+        navigation.navigate("Procurar")
+      }
       }
       >
       <Text>Posta</Text>

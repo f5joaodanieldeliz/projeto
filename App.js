@@ -96,6 +96,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         <Stack.Screen name="Home" component={Tabs} options={{ headerShown: false }}/>
         <Stack.Screen name="PostarAnimal" component={PostarAnimal}/>
+        <Stack.Screen name="Procurar" component={Procurar}/>
         <Stack.Screen name="Login" component={Login}/>
         <Stack.Screen name="CriaConta" component={CriaConta}/>
         <Stack.Screen name="Doacao" component={Doacao}/>

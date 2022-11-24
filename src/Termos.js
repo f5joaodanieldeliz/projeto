@@ -19,17 +19,11 @@ export default function Termos({navigation}) {
                     style={styles.checkbox}
                     />
                 <Text style={styles.label}>aceito </Text>
-            
-                <BouncyCheckbox
-                    value={isSelected2}
-                    onPress={() => setSelection2(!isSelected2)}
-                    isChecked={isSelected2}
-                    style={styles.checkbox}
-                    />
-                <Text style={styles.label}>recuso </Text>
             </View>
 
-            <TouchableOpacity style={ !isSelected ? styles.buttonDisable : styles.buttonEnable } disabled={!isSelected}>
+            <TouchableOpacity style={ !isSelected ? styles.buttonDisable : styles.buttonEnable } disabled={!isSelected}
+            onPress= {() => navigation.navigate("CriaConta")}
+            >
                 <Text>Lido</Text>
             </TouchableOpacity>
         </View>

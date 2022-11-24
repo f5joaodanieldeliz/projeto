@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text,View,TextInput,TouchableOpacity,ScrollView } from 'react-native';
 import {cadastrarUsuario} from './Database/AnimaisPerdidos'
-
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 export default function CriaConta({navigation}) {
   const [nome, onChangeText] = useState('');
@@ -13,7 +13,7 @@ export default function CriaConta({navigation}) {
   const [cpf, onChangeText5] = useState('');
   const [estado, onChangeText6] = useState('');
   const [cidade, onChangeText7] = useState('');
- 
+  const [checkboxState, setCheckboxState] = React.useState(false);
 
   return (
   <ScrollView>
@@ -87,6 +87,17 @@ export default function CriaConta({navigation}) {
         style={styles.input}
         placeholder="telefone" 
       />
+
+<View style={styles.checkboxContainer}>
+                <BouncyCheckbox
+                    isChecked={checkboxState}
+                    onPress={() => setCheckboxState(!checkboxState)}
+                    style={styles.checkbox}
+                    />
+                <Text style={styles.label} onPress={() => navigation.navigate("Termos")}>
+                  clique aqui para ver os termos de uso 
+                </Text>
+            </View>
       
 
       <View style={styles.contrape}>
@@ -94,8 +105,8 @@ export default function CriaConta({navigation}) {
       </View>
      
 
-      <TouchableOpacity disabled={!nome || !idade ||  !Eamil || !senha || !condirmarSenha || !cpf || !estado || !cidade || !Telefone   }
-       style={ !nome || !idade ||  !Eamil || !senha || !condirmarSenha || !cpf || !estado || !cidade || !Telefone  ? styles.buttonDisable : styles.buttonEnable}
+      <TouchableOpacity disabled={!nome || !idade ||  !Eamil || !senha || !condirmarSenha || !cpf || !estado || !cidade || !Telefone || !checkboxState   }
+       style={ !nome || !idade ||  !Eamil || !senha || !condirmarSenha || !cpf || !estado || !cidade || !Telefone || !checkboxState  ? styles.buttonDisable : styles.buttonEnable}
       onPress={() =>{
         usuario = {
           "usuario": {
@@ -110,8 +121,9 @@ export default function CriaConta({navigation}) {
             "cidade" : cidade,
           }
         }
-        cadastrarUsuario('1667617200000',usuario, nome)}} 
-      
+        cadastrarUsuario('1667617200000',usuario, nome)
+        navigation.navigate("Login")
+      }}
        >
         
 
