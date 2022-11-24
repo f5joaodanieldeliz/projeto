@@ -209,7 +209,7 @@ export default function PostarAnimal({navigation}) {
             "status": !status ? "perdido" : "encontrado",
           }
           cadastrarAnimalPerdido('1667617200000', animalPerdido)
-          navigation.navigate("Procurar")
+          navigation.navigate("Home")
         }
         }
         >

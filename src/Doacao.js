@@ -196,12 +196,12 @@ export default function Doacao({navigation}) {
             "latitude":  parseFloat(latitude),
             "longitude": parseFloat(longitude),
           },
-          "posse": posse,
+          "posse": !posse ? "nao" : "sim",
           "status": !status ? "perdido" : "encontrado",
         }
         
         cadastrarAnimalDoacao('1667617200000', animalDoaçao)
-        navigation.navigate("Procurar")
+        navigation.navigate("Home")
       }
       }
       >

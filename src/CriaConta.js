@@ -30,7 +30,7 @@ export default function CriaConta({navigation}) {
       onChangeText={onChangeText}
       value={nome}
         style={styles.input}
-       placeholder="user name" 
+       placeholder="username" 
       />
 
       <TextInput
@@ -58,7 +58,7 @@ export default function CriaConta({navigation}) {
       onChangeText={onChangeText4}
       value={condirmarSenha}
         style={styles.input}
-        placeholder="condirmar senha" 
+        placeholder="confirmar senha" 
       />
 
       <TextInput
@@ -115,7 +115,7 @@ export default function CriaConta({navigation}) {
             "telefone" : Telefone,
             "Email": Eamil,
             "senha": senha,
-            "condirmar senha": condirmarSenha,
+            "confirmar senha": condirmarSenha,
             "cpf" : cpf,
             "estado" : estado,
             "cidade" : cidade,
