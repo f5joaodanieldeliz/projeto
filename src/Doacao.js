@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View,TextInput,TouchableOpacity,ScrollView } from 'react-native';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import {cadastrarAnimalDoacao} from './Database/AnimaisPerdidos'
@@ -36,6 +36,28 @@ export default function Doacao({navigation}) {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+  const minhaLocalizacao = () => {
+      if(location.coords.latitude != null && location.coords.longitude != null){
+        onChangeText10(location.coords.latitude);
+        onChangeText11(location.coords.longitude);
+        console.log(latitude);
+        console.log(longitude);
+      };
+  };
+
   return (
   <ScrollView>
     <View style={styles.container}>
@@ -48,11 +70,9 @@ export default function Doacao({navigation}) {
 
       <View style={styles.containerTex}>
 
-        <TouchableOpacity style={styles.buttonEnable} onPress={pickImage} >
-    
+      <TouchableOpacity style={styles.buttonEnable} onPress={pickImage}>
       <Text>escolher imagem </Text>
-
-    </TouchableOpacity> 
+      </TouchableOpacity> 
 
       <TextInput
       onChangeText={onChangeText}
@@ -110,6 +130,12 @@ export default function Doacao({navigation}) {
         placeholder="Caracteristica" 
       />
 
+      <TouchableOpacity style={styles.buttonlocal} onPress={minhaLocalizacao}>
+      <Text>pegar a sua localização </Text>
+      </TouchableOpacity>
+
+      <Text style={styles.containerTex}>caso nao esteja na localização, digite </Text>
+
       <TextInput
       onChangeText={onChangeText10}
       value={latitude}
@@ -124,7 +150,7 @@ export default function Doacao({navigation}) {
        placeholder="longitude da localização" 
       />
 
-<View style={styles.checkboxContainer}>
+          <View style={styles.checkboxContainer}>
             <BouncyCheckbox
                 value={posse}
                 onPress={() => setSelection(!posse)}
@@ -147,7 +173,7 @@ export default function Doacao({navigation}) {
               </Text>
           </View>
 
-
+      <View style={styles.botao}>
       <TouchableOpacity 
       disabled={!apelido || !animal || !raca || !idade || !sexo || !porte || !Pelagem || !Caracteristica } 
       style={ !apelido || !animal || !raca || !idade || !sexo || !porte || !Pelagem || !Caracteristica ? styles.buttonDisable : styles.buttonEnable}
@@ -179,7 +205,9 @@ export default function Doacao({navigation}) {
       >
       <Text>Posta</Text>
       </TouchableOpacity>
-      </View>
+      <View style={styles.contrape}></View>
+      </View> 
+      </View> 
    </View>
    </ScrollView>
   );
@@ -194,7 +222,7 @@ const styles = StyleSheet.create({
   },
 
   containerTex: {
-    flex: 1,
+    marginTop: 10,
     backgroundColor: 'white',
   },
   innerText: {
@@ -219,13 +247,15 @@ const styles = StyleSheet.create({
     borderRadius:7,
     marginTop:5,
   },
+
   buttonDisable: {
     alignItems: "center",
     backgroundColor: "gray",
     padding: 10,
     borderRadius:7,
-    marginTop:5,
+    marginTop: 5,
   },
+
   logo: {
     height:110,
     width:130,
@@ -245,6 +275,19 @@ const styles = StyleSheet.create({
   top: {
     height: '7%',
   },
-  
+  buttonlocal: {
+    alignItems: "center",
+    backgroundColor: "#5cc6ba",
+    padding: 10,
+    borderRadius:7,
+    marginTop:25,
+  },
+  contrape:{
+    height: 30,
+  },
+  botao:{
+    marginTop: -20,
+    height: '7%',
+  },
  
 });

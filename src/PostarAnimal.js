@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { StyleSheet, Text,View,TextInput,TouchableOpacity,ScrollView } from 'react-native';
 import {cadastrarAnimalPerdido} from './Database/AnimaisPerdidos';
@@ -19,10 +19,10 @@ export default function PostarAnimal({navigation}) {
   const [status, setSelection2] = useState(false);
   const [latitude, onChangeText10] = useState('');
   const [longitude, onChangeText11] = useState('');
+
   const [image, setImage] = useState(null);
   const [location, setLocation] = useState(null);
-  const [lat, setLat] = useState(null);
-  const [long, setLong] = useState(null);
+  
 
 
   const pickImage = async () => {
@@ -56,8 +56,10 @@ export default function PostarAnimal({navigation}) {
 
   const minhaLocalizacao = () => {
       if(location.coords.latitude != null && location.coords.longitude != null){
-        setLat(location.coords.latitude);
-        setLong(location.coords.longitude);
+        onChangeText10(location.coords.latitude);
+        onChangeText11(location.coords.longitude);
+        console.log(latitude);
+        console.log(longitude);
       };
   };
 
@@ -73,7 +75,7 @@ export default function PostarAnimal({navigation}) {
 
       <View style={styles.containerTex}> 
            
-    <TouchableOpacity style={styles.buttonEnable} onPress={pickImage} >
+    <TouchableOpacity style={styles.buttonEnable} onPress={minhaLocalizacao} >
     
       <Text>escolher imagem </Text>
 
@@ -136,7 +138,15 @@ export default function PostarAnimal({navigation}) {
         placeholder="Caracteristica" 
       />
 
+      <TouchableOpacity style={styles.buttonlocal} onPress={minhaLocalizacao}>
+      <Text>pegar a sua localização </Text>
+      </TouchableOpacity>
+
+      
+
+      <Text style={styles.containerTex}>caso nao esteja na localização, digite </Text>
       <TextInput
+      
       onChangeText={onChangeText10}
       value={latitude}
         style={styles.input}
@@ -190,13 +200,13 @@ export default function PostarAnimal({navigation}) {
               "sexo": sexo,
               "porte": porte,
               "pelagem": Pelagem,
-              "caracteristica": Caracteristica
+              "caracteristica": Caracteristica,
             },
             "localizacao": {
               "latitude": parseFloat(latitude),
               "longitude": parseFloat(longitude),
             },
-            "posse": posse,
+            "posse": !posse ? "nao" : "sim",
             "status": !status ? "perdido" : "encontrado",
           }
           cadastrarAnimalPerdido('1667617200000', animalPerdido)}
@@ -205,9 +215,7 @@ export default function PostarAnimal({navigation}) {
       <Text>Postar</Text>
       </TouchableOpacity>
       
-      <View style={styles.contrape}>
-      
-      </View>
+      <View style={styles.contrape}></View>
       </View>
       </View>
    </View>
@@ -224,7 +232,7 @@ const styles = StyleSheet.create({
   },
 
   containerTex: {
-    flex: 1,
+    marginTop: 10,
     backgroundColor: 'white',
   },
   innerText: {
@@ -280,6 +288,15 @@ const styles = StyleSheet.create({
     height: '7%',
   },
   contrape:{
-    height: 30,}
+    height: 30,
+  },
+  buttonlocal: {
+    alignItems: "center",
+    backgroundColor: "#5cc6ba",
+    padding: 10,
+    borderRadius:7,
+    marginTop:25,
+  },
+
  
 });

@@ -13,7 +13,7 @@ export default function DetalheAnimal({navigation,route}) {
   <View style={styles.containerTex}>
     <Text style={styles.innerTitle}>
 
-        Animal:{route.params?.user.nome} 
+        dono:{route.params?.user.nome} 
       </Text>
 
     <Text style={styles.innerTitle}>
