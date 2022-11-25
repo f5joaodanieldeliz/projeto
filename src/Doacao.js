@@ -3,6 +3,7 @@ import { StyleSheet, Text, View,TextInput,TouchableOpacity,ScrollView } from 're
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import {cadastrarAnimalDoacao} from './Database/AnimaisPerdidos'
 import * as ImagePicker from 'expo-image-picker';
+import * as Location from 'expo-location';
 
 
 export default function Doacao({navigation}) {
@@ -19,8 +20,9 @@ export default function Doacao({navigation}) {
   const [latitude, onChangeText10] = useState('');
   const [longitude, onChangeText11] = useState('');
   const [image, setImage] = useState(null);
+  const [location, setLocation] = useState(null);
 
-  const pickImage = async () => {
+  /*const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -34,7 +36,7 @@ export default function Doacao({navigation}) {
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
-  };
+  };*/
 
   useEffect(() => {
     (async () => {
@@ -44,15 +46,15 @@ export default function Doacao({navigation}) {
         return;
       }
 
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
+      let locationPos = await Location.getCurrentPositionAsync({});
+      setLocation(locationPos);
     })();
   }, []);
 
   const minhaLocalizacao = () => {
-      if(location.coords.latitude != null && location.coords.longitude != null){
-        onChangeText10(location.coords.latitude);
-        onChangeText11(location.coords.longitude);
+      if(location.coords.latitude !== null && location.coords.longitude !== null){
+        onChangeText10(location.coords.latitude + '');
+        onChangeText11(location.coords.longitude + '');
         console.log(latitude);
         console.log(longitude);
       };
@@ -64,21 +66,17 @@ export default function Doacao({navigation}) {
       
       <View style={styles.top}>
       <Text style={styles.innerText}>
-       coloque as características dos animais que deseja botar para adoçao
+      Cadastre as informações do animal
       </Text> 
       </View>
 
       <View style={styles.containerTex}>
 
-      <TouchableOpacity style={styles.buttonEnable} onPress={pickImage}>
-      <Text>escolher imagem </Text>
-      </TouchableOpacity> 
-
       <TextInput
       onChangeText={onChangeText}
       value={apelido}
         style={styles.input}
-       placeholder="apelido" 
+       placeholder="Apelido" 
       />
 
       <TextInput
@@ -99,7 +97,7 @@ export default function Doacao({navigation}) {
       onChangeText={onChangeText4}
       value={idade}
         style={styles.input}
-        placeholder="Idade (visivel)" 
+        placeholder="Idade (aproximada)" 
       />
 
       <TextInput
@@ -113,7 +111,7 @@ export default function Doacao({navigation}) {
        onChangeText={onChangeText6}
        value={porte}
         style={styles.input}
-        placeholder="porte" 
+        placeholder="Porte" 
       />
 
       <TextInput
@@ -127,27 +125,27 @@ export default function Doacao({navigation}) {
       onChangeText={onChangeText8}
       value={Caracteristica}
         style={styles.input}
-        placeholder="Caracteristica" 
+        placeholder="Demais Caracteristica" 
       />
 
-      <TouchableOpacity style={styles.buttonlocal} onPress={minhaLocalizacao}>
-      <Text>pegar a sua localização </Text>
+      <TouchableOpacity style={styles.buttonlocal} onPress={() => minhaLocalizacao()}>
+      <Text>Minha Localização</Text>
       </TouchableOpacity>
 
-      <Text style={styles.containerTex}>caso nao esteja na localização, digite </Text>
+      <Text style={styles.containerTex}>Caso não apareça sua localização, digite </Text>
 
       <TextInput
       onChangeText={onChangeText10}
       value={latitude}
         style={styles.input}
-       placeholder="latitude da localização" 
+       placeholder="Latitude" 
       />
 
       <TextInput
       onChangeText={onChangeText11}
       value={longitude}
         style={styles.input}
-       placeholder="longitude da localização" 
+       placeholder="Longitude" 
       />
 
           <View style={styles.checkboxContainer}>
@@ -158,7 +156,7 @@ export default function Doacao({navigation}) {
                 style={styles.checkbox}
                 />
               <Text style={styles.label}>
-                voce esta com o animal
+                Você está com o animal?
               </Text>
         </View>
        <View style={styles.checkboxContainer}>
@@ -169,7 +167,7 @@ export default function Doacao({navigation}) {
                 style={styles.checkbox}
                 />
               <Text style={styles.label}>
-                ja foi encontrado
+                Já foi adotado?
               </Text>
           </View>
 
@@ -178,10 +176,7 @@ export default function Doacao({navigation}) {
       disabled={!apelido || !animal || !raca || !idade || !sexo || !porte || !Pelagem || !Caracteristica } 
       style={ !apelido || !animal || !raca || !idade || !sexo || !porte || !Pelagem || !Caracteristica ? styles.buttonDisable : styles.buttonEnable}
       onPress={() => {
-        animalDoaçao = { 
-          "user": {
-            "nome": "luciano",
-          },
+        let animalDoacao = { 
           "animal":
           {
             "apelido": apelido,
@@ -196,16 +191,16 @@ export default function Doacao({navigation}) {
             "latitude":  parseFloat(latitude),
             "longitude": parseFloat(longitude),
           },
-          "posse": !posse ? "nao" : "sim",
-          "status": !status ? "perdido" : "encontrado",
+          "posse": !posse ? "Não" : "Sim",
+          "status": !status ? "Em adoção" : "Adotado",
         }
         
-        cadastrarAnimalDoacao('1667617200000', animalDoaçao)
+        cadastrarAnimalDoacao('1667617200000', animalDoacao)
         navigation.navigate("Home")
       }
       }
       >
-      <Text>Posta</Text>
+      <Text>Salvar</Text>
       </TouchableOpacity>
       <View style={styles.contrape}></View>
       </View> 

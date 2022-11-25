@@ -21,7 +21,7 @@ export default function CriaConta({navigation}) {
   
     <View style={styles.top}>
     <Text style={styles.innerText}>
-        prencha os dados para criar a sua conta
+        Prencha os dados para criar a sua conta
       </Text> 
     </View>
 
@@ -30,14 +30,14 @@ export default function CriaConta({navigation}) {
       onChangeText={onChangeText}
       value={nome}
         style={styles.input}
-       placeholder="username" 
+       placeholder="Username" 
       />
 
       <TextInput
        onChangeText={onChangeText8}
        value={idade}
         style={styles.input}
-        placeholder="idade" 
+        placeholder="Idade" 
       />
 
       <TextInput
@@ -51,41 +51,41 @@ export default function CriaConta({navigation}) {
       onChangeText={onChangeText3}
       value={senha}
         style={styles.input}
-       placeholder="senha" 
+       placeholder="Senha" 
       />
 
       <TextInput
       onChangeText={onChangeText4}
       value={condirmarSenha}
         style={styles.input}
-        placeholder="confirmar senha" 
+        placeholder="Confirmar senha" 
       />
 
       <TextInput
        onChangeText={onChangeText5}
        value={cpf}
         style={styles.input}
-        placeholder="cpf" 
+        placeholder="CPF" 
       />
 
        <TextInput
        onChangeText={onChangeText6}
        value={estado}
         style={styles.input}
-        placeholder="estado" 
+        placeholder="Estado" 
       />
 
       <TextInput
        onChangeText={onChangeText7}
        value={cidade}
         style={styles.input}
-        placeholder="cidade" 
+        placeholder="Cidade" 
       />
       <TextInput
        onChangeText={onChangeText9}
        value={Telefone}
         style={styles.input}
-        placeholder="telefone" 
+        placeholder="Telefone" 
       />
 
 <View style={styles.checkboxContainer}>
@@ -95,7 +95,7 @@ export default function CriaConta({navigation}) {
                     style={styles.checkbox}
                     />
                 <Text style={styles.label} onPress={() => navigation.navigate("Termos")}>
-                  clique aqui para ver os termos de uso 
+                  Clique aqui para ver os termos de uso 
                 </Text>
             </View>
       
@@ -115,7 +115,6 @@ export default function CriaConta({navigation}) {
             "telefone" : Telefone,
             "Email": Eamil,
             "senha": senha,
-            "confirmar senha": condirmarSenha,
             "cpf" : cpf,
             "estado" : estado,
             "cidade" : cidade,
@@ -127,7 +126,7 @@ export default function CriaConta({navigation}) {
        >
         
 
-      <Text>Posta</Text>
+      <Text>Salvar</Text>
       </TouchableOpacity>
 
       <View style={styles.contrape}>

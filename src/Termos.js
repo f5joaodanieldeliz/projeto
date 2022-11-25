@@ -4,7 +4,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 export default function Termos({navigation}) {
         const [isSelected, setSelection] = useState(false);
-        const [isSelected2, setSelection2] = useState(false);
+
 
   return (
     <View style={styles.container}>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text ,View, TextInput, TouchableOpacity, Image } from 'react-native';
 import logo from '../assets/Logo.png'
 import { getDatabase, ref, onValue } from 'firebase/database';
+import * as SecureStore from 'expo-secure-store';
 
 
 
@@ -21,6 +22,9 @@ export default function Login({navigation}) {
     });
   };
 
+  async function save(key, value) {
+    await SecureStore.setItemAsync(key, value);
+  }
 
    useEffect(() => {
     usuarios();
@@ -32,6 +36,7 @@ export default function Login({navigation}) {
      if ( username in resultU) {
        let  usernameResult = resultU[username];
       if(password === usernameResult.usuario.senha){
+        save('user', username);
         navigation.navigate('Home');
       }  
      };
@@ -62,12 +67,12 @@ export default function Login({navigation}) {
         value={senha}
       />
       <Text style={styles.innerText} onPress={() => navigation.navigate('CriaConta')}>
-        nao tem conta ? cadastre-se
+        Nao possui conta? Cadastre-se
       </Text>
 
       <TouchableOpacity style={styles.button} 
       onPress={() => autenticacao(usuario,senha)}>
-      <Text>logar</Text>
+      <Text>Logar</Text>
       </TouchableOpacity>
       </View>
    </View>

@@ -16,12 +16,12 @@ export default function Home({ navigation }) {
       <View style={styles.containerTex}>   
 
         <TouchableOpacity style={styles.button}  onPress={() => navigation.navigate('PostarAnimal')}>
-          <Text>Postar animal</Text>
+          <Text>Postar Animal Perdido</Text>
         </TouchableOpacity>
 
         
         <TouchableOpacity style={styles.button} onPress = {() => navigation.navigate('Doacao')}>
-          <Text>para adoção</Text>
+          <Text>Cadastrar Para Adoção</Text>
         </TouchableOpacity>
       </View>
    </View>

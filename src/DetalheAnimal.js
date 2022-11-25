@@ -12,12 +12,11 @@ export default function DetalheAnimal({navigation,route}) {
 
   <View style={styles.containerTex}>
     <Text style={styles.innerTitle}>
-
-        dono:{route.params?.user.nome} 
+        Apelido:{route.params?.animal.apelido} 
       </Text>
 
     <Text style={styles.innerTitle}>
-        Raca:{route.params?.animal.raca} 
+        Raça:{route.params?.animal.raca} 
       </Text>
 
       <Text style={styles.innerTitle}>
@@ -37,7 +36,7 @@ export default function DetalheAnimal({navigation,route}) {
       </Text>
 
     <Text style={styles.innerTitle}>
-        Posse do animal:{route.params?.posse} 
+        Já foi encontrado?:{route.params?.status} 
       </Text>
       
     <Text style={styles.innerTitle}>

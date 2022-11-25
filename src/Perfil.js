@@ -1,8 +1,42 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { StyleSheet, Text, View,Image,TouchableOpacity,ScrollView } from 'react-native';
-import FundoPerfil from '../assets/FundoPerfil.png'
+import FundoPerfil from '../assets/FundoPerfil.png';
+import * as SecureStore from 'expo-secure-store';
+import { getDatabase, ref, onValue } from 'firebase/database';
 
 export default function Perfil({navigation}) {
+
+  const [user, setUser] = useState(null);
+  const [usuarioLogado, setUsuarioLogado] = useState([]);
+ 
+  async function getUser() {
+    let result = await SecureStore.getItemAsync('user');
+    setUser(result);
+  }
+
+  const Logout = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{name: 'Login'}],
+    });
+  }
+
+  const usuarios = () => { 
+    const db = getDatabase();
+    const reference = ref(db, 'usuario');
+    onValue(reference, (snapshot) => { 
+      const usuario = snapshot.val();
+      console.log((usuario[user]));
+      setUsuarioLogado((usuario[user]));
+    });
+  };
+
+  useEffect(() => {
+      getUser();
+      usuarios();
+  }, [user]);
+
+
   return (
 <ScrollView>
 <View style={styles.container}>
@@ -14,22 +48,22 @@ export default function Perfil({navigation}) {
 
   <View style={styles.containerTex}>
     <Text style={styles.innerTitle}>
-        Nome:
+        Nome: {usuarioLogado && usuarioLogado.usuario && usuarioLogado.usuario.nome}
       </Text>
     <Text style={styles.innerTitle}>
-        Idade:
+        Idade: {usuarioLogado && usuarioLogado.usuario && usuarioLogado.usuario.idade}
       </Text>
     <Text style={styles.innerTitle}>
-        Cidade:
+        Cidade: {usuarioLogado && usuarioLogado.usuario && usuarioLogado.usuario.cidade}
       </Text>
       <Text style={styles.innerTitle}>
-        Estado:
+        Estado: {usuarioLogado && usuarioLogado.usuario && usuarioLogado.usuario.estado}
       </Text>
       <Text style={styles.innerTitle}>
-        Telefone:
+        Telefone: {usuarioLogado && usuarioLogado.usuario && usuarioLogado.usuario.telefone}
       </Text>
       <Text style={styles.innerTitle}>
-        Email:
+        Email: {usuarioLogado && usuarioLogado.usuario && usuarioLogado.usuario.Email}
       </Text>
   </View>
 
@@ -61,7 +95,7 @@ export default function Perfil({navigation}) {
   <Text style={styles.innerTitleEdit}>
     Descrição:
   </Text>
-  <TouchableOpacity style={styles.button}>
+  <TouchableOpacity style={styles.button} onPress={() => Logout()}>
     <Text>editar</Text>
   </TouchableOpacity>
   </View>
